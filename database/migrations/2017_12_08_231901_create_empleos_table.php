@@ -22,16 +22,16 @@ class CreateEmpleosTable extends Migration
             $table->string('correoContacto');
             $table->float('salario',8,2);
             $table->string('tipoContrato');
-            $table->datetime('ubicacion');
-            $table->string('vigencia');
-            $table->string('horario');
+            $table->string('ubicacion');
+            $table->date('vigencia')->default('1900-01-01');
+            $table->string('horario')->default('99');;
             $table->string('descripcion');
             $table->string('idiomas');
             $table->string('nivelEstudios');
-            $table->string('competencias');
             $table->integer('numeroPlazas');
-            $table->integer('diasLaborales');
+            $table->string('diasLaborales');
             $table->enum('estatus', ['1', '0'])->default('0');
+            $table->timestamps();
         });
     }
 

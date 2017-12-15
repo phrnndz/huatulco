@@ -17,7 +17,7 @@
                     @endif
 
                        
-                   <h2>Agregar película</h2> 
+                   <h2>Editar película</h2> 
 
                          {!! Form::model($pelicula,array('route' => array('cartelera.update', $pelicula->id),'files' => true, 'method' => 'PUT')) !!}
                         <div class="form-group">

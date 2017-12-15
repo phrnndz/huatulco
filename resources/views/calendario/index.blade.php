@@ -15,28 +15,26 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <a href="{{  route('bolsadetrabajo.create')  }}" ><span class="fui-plus"></span>  Agregar vacante</a>﻿
+                    <a href="{{  route('calendario.create')  }}" ><span class="fui-plus"></span>  Agregar evento</a>﻿
                     <br>
                     <br>
                       <table class="table table-bordered table-striped"> 
                             <thead>
-                                <th>Fecha de creación</th>
-                                <th>Nombre Oferta</th>
-                                <th>Empresa</th>
+                                <th>Nombre evento</th>
+                                <th>Fechass</th>
                                 <th>Estatus</th>
 
                                 <th>Acciones</th>
 
                             </thead> 
                             <tbody> 
-                                @foreach ($empleos as $empleo)
+                                @foreach ($eventos as $evento)
                                 <tr> 
-                                    <td>{{ $empleo->created_at }}</td>
-                                    <td>{{ $empleo->nombreOferta }}</td>
-                                    <td>{{ $empleo->nombreEmpresa }}</td> 
+                                    <td>{{ $evento->nombreEvento }}</td>
+                                    <td>{{ $evento->fechaEvento }}</td> 
 
                                     <td>
-                                        @if($empleo->estatus == '1')
+                                        @if($evento->estatus == '1')
                                             <span class="label label-info">Publicado</span
                                         @else
                                             <span class="label label-default">Borrador</span>
@@ -46,14 +44,14 @@
                                     <td>
                                         
 
-                                        {!! Form::open(array('route'=> ['bolsadetrabajo.destroy', $empleo->id],'method' =>'DELETE')) !!}
+                                        {!! Form::open(array('route'=> ['calendario.destroy', $evento->id],'method' =>'DELETE')) !!}
                                         {{csrf_field()}}
-                                        <a href="{{  route('bolsadetrabajo.show', $empleo->id, 'Ver')  }}" ><span class="fui-eye"></span ></a>﻿
-                                        <a href="{{  route('bolsadetrabajo.edit', $empleo->id, 'Editar')  }}" > <span class="fui-new"></span> </a>﻿
+                                        <a href="{{  route('calendario.show', $evento->id, 'Ver')  }}" ><span class="fui-eye"></span ></a>﻿
+                                        <a href="{{  route('calendario.edit', $evento->id, 'Editar')  }}" > <span class="fui-new"></span> </a>﻿
                                         {{ Form::submit('Eliminar',array('class' => 'btn btn-danger'))}}
                                         {!! Form::close() !!}
 
-                                        {!! Form::open(array('route'=> ['bolsadetrabajo.cambiaEstatus', $empleo->id],'method' =>'GET')) !!}
+                                        {!! Form::open(array('route'=> ['calendario.cambiaEstatus', $evento->id],'method' =>'GET')) !!}
                                             {{ Form::submit('Cambiar Estatus',array('class' => 'btn btn-primary'))}}
                                          {!! Form::close() !!}
 
@@ -65,7 +63,7 @@
                         </table>
 
                         <div class="text-center">
-                            {!! $empleos->links()!!}
+                            {!! $eventos->links()!!}
                         </div>
 
                                          

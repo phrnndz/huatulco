@@ -40,6 +40,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('cartelera.index') }}">Cartelera</a></li>
+                        <li><a href="{{ route('bolsadetrabajo.index') }}">Bolsa de Trabajo</a></li>
+                        <li><a href="{{ route('calendario.index') }}">Eventos</a></li>
+
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

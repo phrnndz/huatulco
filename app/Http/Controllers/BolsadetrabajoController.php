@@ -47,43 +47,38 @@ class BolsadetrabajoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
         $validatedData = $request->validate([
-            'nombre' => 'required|max:500',
-            'clasificacion' => 'required',
-            'duracion' => 'required',
-            'trailerURL' => 'required',
-            'imagenURL' => 'required',
-            'idioma' => 'required',
-            'horario' => 'required',
-            'sinopsis' => 'required'
+            'nombreOferta' => 'required|max:500',
+            'nombreEmpresa' => 'required',
+            'nombreContacto' => 'required',
+            'telefonoContacto' => 'required',
+            'correoContacto' => 'required',
+            'nivelEstudios' => 'required',
+            'descripcion' => 'required'
         ]);
 
-        $pelicula = new Pelicula;
-        $pelicula->nombre = $request->nombre;
-        $pelicula->clasificacion = $request->clasificacion;
-        $pelicula->duracion = $request->duracion;
-        $pelicula->trailerURL = $request->trailerURL;
-        $pelicula->idioma = $request->idioma;
-        $pelicula->horario = $request->horario;
-        $pelicula->sinopsis = $request->sinopsis;
-        $pelicula->estatus = '0';
+        $empleo = new Empleo;
+        $empleo->nombreOferta   = $request->nombreOferta;
+        $empleo->nombreEmpresa  = $request->nombreEmpresa;
+        $empleo->nombreContacto = $request->nombreContacto;
+        $empleo->telefonoContacto = $request->telefonoContacto;
+        $empleo->correoContacto = $request->correoContacto;
+        $empleo->salario        = $request->salario;
+        $empleo->idiomas        = $request->idiomas;
+        $empleo->tipoContrato   = $request->tipoContrato;
+        $empleo->ubicacion      = $request->ubicacion;
+        $empleo->nivelEstudios  = $request->nivelEstudios;
+        $empleo->numeroPlazas   = $request->numeroPlazas;
+        $empleo->diasLaborales  = $request->diasLaborales;
+        $empleo->descripcion    = $request->descripcion;
+        $empleo->estatus        = '0';
 
-        if ($request->hasFile('imagenURL')) {
-           $image = $request->file('imagenURL');
-           $filename = time().'.'.$image->getClientOriginalExtension();
-           $location = public_path('images/'.$filename);
-           Image::make($image)->resize(100,100)->save($location);
+        $empleo->save();
 
-           $pelicula->imagenURL = $filename;
-        }
+        Session::flash('success','Se agregó la vacante correctamente');
 
-
-        $pelicula->save();
-
-        Session::flash('success','Se agregó la película correctamente');
-
-        return redirect()->route('cartelera.show', $pelicula->id);
+        return redirect()->route('bolsadetrabajo.show', $empleo->id);
 
 
     }
@@ -97,8 +92,8 @@ class BolsadetrabajoController extends Controller
     public function show($id)
     {
         //
-        $pelicula = Pelicula::find($id);
-        return view('cartelera.show')->with('pelicula', $pelicula);
+        $empleo = Empleo::find($id);
+        return view('bolsadetrabajo.show')->with('empleo', $empleo);
 
     }
 
@@ -111,8 +106,8 @@ class BolsadetrabajoController extends Controller
     public function edit($id)
     {
         //
-        $pelicula = Pelicula::find($id);
-        return view('cartelera.edit')->with('pelicula', $pelicula);
+        $empleo = Empleo::find($id);
+        return view('bolsadetrabajo.edit')->with('empleo', $empleo);
     }
 
     /**
@@ -126,44 +121,35 @@ class BolsadetrabajoController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'nombre' => 'required|max:500',
-            'clasificacion' => 'required',
-            'duracion' => 'required',
-            'trailerURL' => 'required',
-            'imagenURL' => 'required',
-            'idioma' => 'required',
-            'horario' => 'required',
-            'sinopsis' => 'required'
+            'nombreOferta' => 'required|max:500',
+            'nombreEmpresa' => 'required',
+            'nombreContacto' => 'required',
+            'telefonoContacto' => 'required',
+            'correoContacto' => 'required',
+            'nivelEstudios' => 'required',
+            'descripcion' => 'required'
         ]);
 
-        $pelicula = Pelicula::find($id);
-        $pelicula->nombre = $request->get('nombre');
-        $pelicula->clasificacion = $request->get('clasificacion');
-        $pelicula->duracion = $request->get('duracion');
-        $pelicula->trailerURL = $request->get('trailerURL');
-        $pelicula->imagenURL = $request->get('imagenURL');
-        $pelicula->idioma = $request->get('idioma');
-        $pelicula->horario = $request->get('horario');
-        $pelicula->sinopsis = $request->get('sinopsis');
-        $pelicula->estatus = '0';
+        $empleo = Empleo::find($id);
+        $empleo->nombreOferta   = $request->nombreOferta;
+        $empleo->nombreEmpresa  = $request->nombreEmpresa;
+        $empleo->nombreContacto = $request->nombreContacto;
+        $empleo->telefonoContacto = $request->telefonoContacto;
+        $empleo->correoContacto = $request->correoContacto;
+        $empleo->salario        = $request->salario;
+        $empleo->idiomas        = $request->idiomas;
+        $empleo->tipoContrato   = $request->tipoContrato;
+        $empleo->ubicacion      = $request->ubicacion;
+        $empleo->nivelEstudios  = $request->nivelEstudios;
+        $empleo->numeroPlazas   = $request->numeroPlazas;
+        $empleo->diasLaborales  = $request->diasLaborales;
+        $empleo->descripcion    = $request->descripcion;
 
-        if ($request->hasFile('imagenURL')) {
-           $image = $request->file('imagenURL');
-           $filename = time().'.'.$image->getClientOriginalExtension();
-           $location = public_path('images/'.$filename);
-           Image::make($image)->resize(100,100)->save($location);
-           $oldFilename = $pelicula->imagenURL;
-           $pelicula->imagenURL = $filename;
-           Storage::delete($oldFilename);
+        $empleo->save();
 
-           $pelicula->imagenURL = $filename;
-        }
+        Session::flash('success','Se modificó la vacante correctamente');
 
-        $pelicula->save();
-
-        Session::flash('success','Se modificó la película correctamente');
-
-        return redirect()->route('cartelera.show', $pelicula->id);
+        return redirect()->route('bolsadetrabajo.show', $empleo->id);
     }
 
     /**
@@ -175,22 +161,21 @@ class BolsadetrabajoController extends Controller
     public function destroy($id)
     {
         //
-        $pelicula = Pelicula::find($id);
-        Storage::delete($pelicula->imagenURL);
-        $pelicula->delete();
+        $empleo = Empleo::find($id);
+        $empleo->delete();
         Session::flash('success','Se eliminó el registro correctamente');
-        return redirect()->route('cartelera.index');
+        return redirect()->route('bolsadetrabajo.index');
     }
 
     public function cambiaEstatus($id){
-        $pelicula = Pelicula::find($id);
-        if($pelicula->estatus == '1'){
-            $pelicula->estatus = '0';
+        $empleo = Empleo::find($id);
+        if($empleo->estatus == '1'){
+            $empleo->estatus = '0';
         }else{
-            $pelicula->estatus = '1';
+            $empleo->estatus = '1';
         }
-        $pelicula->save();
+        $empleo->save();
         Session::flash('success','Se mofidicó correctamente');
-        return redirect()->route('cartelera.index');
+        return redirect()->route('bolsadetrabajo.index');
     }
 }

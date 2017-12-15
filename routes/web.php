@@ -22,5 +22,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('cartelera','CarteleraController');
 Route::get('cartelera/cambiaEstatus/{id}', 'CarteleraController@cambiaEstatus')->name('cartelera.cambiaEstatus');
 
+//BOLSA DE TRABAJO
 Route::resource('bolsadetrabajo','BolsadetrabajoController');
+Route::get('bolsadetrabajo/cambiaEstatus/{id}', 'BolsadetrabajoController@cambiaEstatus')->name('bolsadetrabajo.cambiaEstatus');
+
+//EVENTOS
+Route::resource('calendario','CalendarioController');
+Route::get('calendario/cambiaEstatus/{id}', 'CalendarioController@cambiaEstatus')->name('calendario.cambiaEstatus');
+
 
